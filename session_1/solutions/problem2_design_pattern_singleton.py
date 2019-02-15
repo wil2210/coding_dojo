@@ -4,18 +4,28 @@ logging.getLogger().setLevel(logging.DEBUG)
 
 
 class Singleton:
-    ### put your code here
-    pass
+    __instance = None
 
+    @staticmethod
+    def getInstance():
+        if Singleton.__instance is None:
+            Singleton()
+        return Singleton.__instance
+
+    def __init__(self):
+        if Singleton.__instance is not None:
+            raise Exception("This class is a singleton!")
+        else:
+            Singleton.__instance = self
 
 if __name__ == '__main__':
+    logging.info("*" * 20)
     logging.info("""
-        let's try our singleton with these 2 objects:
+            Let's try our singleton with these 2 objects:
             obj1 = Singleton.getInstance()
             obj2 = Singleton.getInstance()""")
-
-    ### obj1 = [instantiate_Singleton]() # instantiate your Singleton
-    ### obj2 = [instantiate_Singleton]() # instantiate your Singleton
+    obj1 = Singleton.getInstance()
+    obj2 = Singleton.getInstance()
     total_score = 0
     # Test 1
     logging.info("*" * 20)
